@@ -24,8 +24,8 @@ class Book(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String())
-    author_id = Column(Integer(), ForeignKey('authors.id'), nullable=False)
-    genre_id = Column(Integer(), ForeignKey('genres.id'), nullable=False)
+    author_id = Column(Integer(), ForeignKey('authors.id'))
+    genre_id = Column(Integer(), ForeignKey('genres.id'))
 
 class Genre(Base):
     __tablename__ = 'genres'

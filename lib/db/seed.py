@@ -28,7 +28,7 @@ def delete_records():
 def create_authors():
     authors = []
     for _ in range(num_authors):
-        author = Author(name=f"{fake.first_name} {fake.last_name}")
+        author = Author(name=f"{fake.first_name()} {fake.last_name()}")
         authors.append(author)
         session.add(author)
     session.commit()
@@ -73,7 +73,7 @@ def create_books(authors):
 def create_users():
     users = []
     for _ in range(num_users):
-        user = User(name=fake.user_name)
+        user = User(name=fake.user_name())
         users.append(user)
         session.add(user)
     session.commit()
@@ -82,11 +82,12 @@ def create_users():
 def establish_relationships(authors, books, genres, users):
     for book in books:
         author = fake.random_element(authors)
-        book.author_id = author.id
-        author.books.append(book)
-
         genre = fake.random_element(genres)
+
+        book.author_id = author.id
         book.genre_id = genre.id
+
+        author.books.append(book)
         genre.books.append(book)
 
     for user in users:
