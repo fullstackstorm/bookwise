@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from db.models.user import BookWiseUser
 from db.models.models import User
 from simple_term_menu import TerminalMenu
 

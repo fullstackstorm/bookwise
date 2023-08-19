@@ -1,7 +1,8 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Table
+from simple_term_menu import TerminalMenu
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from db.session import Session
+from ..session import Session
 
 session = Session()
 
@@ -61,7 +62,19 @@ class User(Base):
         if user:
             return user
         else:
-            cls.user = User(name=username)
-            session.add(cls.user)
+            new_user = User(name=username)
+            session.add(new_user)
+
+            new_user.capture_preferred_genres()
+
             session.commit()
-            return cls.user
+            return new_user
+        
+    def capture_preferred_genres(self):
+        genres = session.query(Genre).all()
+        genre_names = [genre.name for genre in genres]
+        menu = TerminalMenu(genre_names, title="Select Preferred Genres:")
+        selected_indices = menu.show()
+
+        preferred_genres = [genres[i] for i in selected_indices]
+        self.preferred_genres.extend(preferred_genres)
