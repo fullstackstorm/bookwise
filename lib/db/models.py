@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Table
 from simple_term_menu import TerminalMenu
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from ..session import Session
+from session import Session
 
 session = Session()
 
