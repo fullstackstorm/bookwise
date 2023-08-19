@@ -103,7 +103,7 @@ if __name__ == '__main__':
         books = create_books(authors)
         users = create_users()
 
-        establish_relationships(authors, books, genres)
+        establish_relationships(authors, books, genres, users)
 
         session.commit()
     except Exception as e:
