@@ -9,8 +9,7 @@ class BookWiseUser(User):
         self.user = None
 
     @classmethod
-    def login_or_create(cls):
-        username = input("Enter your username, an account will be created if it doesn't exist:\n")
+    def login_or_create(cls, username):
         user = session.query(cls).filter_by(name=username).first()
         if user:
             return user

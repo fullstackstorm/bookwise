@@ -1,32 +1,37 @@
 #!/usr/bin/env python
 from db.models.user import BookWiseUser
+from db.models.models import User
+from simple_term_menu import TerminalMenu
 
 class Cli():
     def __init__(self):
         current_user = None
 
     def start(self):
-        menu = True
+        self.clear_screen(44)
         print("Welcome to BookWise! A CLI to give you new book recommendations.\n")
-        while menu:
-            print("1. Login")
-            print("2. Exit\n")
-            user_input = input("Enter a selection (1-2):\n")
-            if user_input in ['1', '2']:
-                self.handle_user_input(user_input)
-                menu = False
-            else:
-                print("Invalid selection. Please choose 1 or 2.")
+        options = ["Login", "Exit"]
+        terminal_menu = TerminalMenu(options)
+        menu_entry_index = terminal_menu.show()
+        
+        if options[menu_entry_index] == "Login":
+            self.handle_login()
+        else:
+            self.exit()
+
+    def clear_screen(self, lines):
+        print("\n" * lines)
 
     def second_menu():
         pass
 
-    def handle_user_input(choice):
-        if choice == '1':
-            current_user = BookWiseUser.login_or_create()
-        elif choice == '2':
-            print("Exiting the program.")
+    def handle_login(self):
+        username = input("Enter your username, an account will be created if it doesn't exist:\n")
+        user = User.login_or_create(username)
+        self.current_user = user
+        print(f"Hello, {user.name}!\n")
 
 
-    if __name__ == '__main__':
-        start()
+if __name__ == '__main__':
+    cli = Cli()
+    cli.start()

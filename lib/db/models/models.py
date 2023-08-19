@@ -1,6 +1,9 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Table
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
+from db.session import Session
+
+session = Session()
 
 Base = declarative_base()
 
@@ -51,3 +54,14 @@ class User(Base):
         secondary=preferred_genre_association,
         back_populates='preferred_by_users'
     )
+
+    @classmethod
+    def login_or_create(cls, username):
+        user = session.query(cls).filter_by(name=username).first()
+        if user:
+            return user
+        else:
+            cls.user = User(name=username)
+            session.add(cls.user)
+            session.commit()
+            return cls.user
