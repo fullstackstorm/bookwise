@@ -1,13 +1,9 @@
 #import ipdb; ipdb.set_trace()
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 from faker import Faker
 from wonderwords import RandomWord
+from models.session import session
 from models.models import Author, Book, Genre, User
 
-engine = create_engine('sqlite:///library.db')
-Session = sessionmaker(bind=engine)
-session = Session()
 fake = Faker()
 word = RandomWord()
 
