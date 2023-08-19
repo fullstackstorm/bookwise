@@ -2,7 +2,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from faker import Faker
-from pyinflect import getAllInflections
 from wonderwords import RandomWord
 from models import Author, Book, Genre, User
 
@@ -46,18 +45,18 @@ def create_genres():
 
 def create_books(authors):
     adjectives = word.filter(include_parts_of_speech=["adjectives"])
-    verbs = getAllInflections("VB")
-    nouns = getAllInflections("NN")
+    verbs = word.filter(include_parts_of_speech=["verbs"])
+    nouns = word.filter(include_parts_of_speech=["nouns"])
 
     book_titles = [
-        f"{fake.catch_phrase.capitalize()} Mysteries: {fake.city()}",
+        f"{fake.catch_phrase()} Mysteries: {fake.city()}",
         f"The Chronicles of {fake.first_name()} {fake.last_name()}",
-        f"{fake.random_element(verbs).capitalize()} in the {fake.random_element(adjectives).capitalize()}",
-        f"{fake.random_element(adjectives).capitalize()} {fake.random_element(nouns).capitalize()}",
-        f"{fake.random_element(verbs).capitalize()} of {fake.random_element(nouns).capitalize()}",
-        f"Adventures in the {fake.random_element(nouns).capitalize()}",
-        f"Journey through {fake.random_element(nouns).capitalize()}",
-        f"Reflections in {fake.word().capitalize()}"
+        f"{fake.random_element(verbs)} in the {fake.random_element(adjectives)}",
+        f"{fake.random_element(adjectives)} {fake.random_element(nouns)}",
+        f"{fake.random_element(verbs)} of {fake.random_element(nouns)}",
+        f"Adventures in the {fake.random_element(nouns)}",
+        f"Journey through {fake.random_element(nouns)}",
+        f"Reflections in {fake.word()}"
     ]
     
     books = []

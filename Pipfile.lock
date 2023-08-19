@@ -292,14 +292,6 @@
             "markers": "python_version >= '3.7'",
             "version": "==2.16.1"
         },
-        "pyinflect": {
-            "hashes": [
-                "sha256:94f052d48939bd4748942d807b2b87f15dcb94acb32b99d7162dba5d37188ea8",
-                "sha256:b512834f6fecc56d7aa10c9a40dca1e9fb66fbb4d72ffc55760d58e53070ba0a"
-            ],
-            "index": "pypi",
-            "version": "==0.5.1"
-        },
         "python-dateutil": {
             "hashes": [
                 "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86",
