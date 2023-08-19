@@ -8,6 +8,8 @@ ipdb = "*"
 sqlalchemy = "*"
 alembic = "*"
 faker = "*"
+pyinflect = "*"
+wordlist = "*"
 
 [dev-packages]
 

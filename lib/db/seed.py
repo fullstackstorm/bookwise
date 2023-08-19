@@ -2,6 +2,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from faker import Faker
+from pyinflect import getAllInflections
+from wordlist import WordList
 from models import Author, Book, Genre, User
 
 engine = create_engine('sqlite:///library.db')
@@ -42,14 +44,17 @@ def create_genres():
     return genres
 
 def create_books(authors):
+    verbs = getAllInflections("VB")
+    nouns = getAllInflections("NN")
+
     book_titles = [
         f"{fake.catch_phrase()} Mysteries: {fake.city()}",
         f"The Chronicles of {fake.first_name()} {fake.last_name()}",
-        f"{fake.word.verb()} in the {fake.word.adjective()}",
-        f"{fake.word.adjective()} {fake.word.noun()}",
-        f"{fake.word.verb()} of {fake.word.noun()}",
-        f"Adventures in the {fake.word.noun()}",
-        f"Journey through {fake.word.noun()}",
+        f"{fake.random_element(verbs).title()} in the {fake.word.adjective()}",
+        f"{fake.word.adjective()} {fake.random_element(nouns)}",
+        f"{fake.random_element(verbs).title()} of {fake.random_element(nouns)}",
+        f"Adventures in the {fake.random_element(nouns)}",
+        f"Journey through {fake.random_element(nouns)}",
         f"Reflections in {fake.word()}"
     ]
     

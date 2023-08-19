@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c93ff0fc1f8f03d4f3d145692548b44f4ecb0590c6ea6f66c7975110711e8ade"
+            "sha256": "2434d6805d72a34633fdfe24ed18616aeb4e9e8ea41a3deae78c0c349a0c566c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -292,6 +292,14 @@
             "markers": "python_version >= '3.7'",
             "version": "==2.16.1"
         },
+        "pyinflect": {
+            "hashes": [
+                "sha256:94f052d48939bd4748942d807b2b87f15dcb94acb32b99d7162dba5d37188ea8",
+                "sha256:b512834f6fecc56d7aa10c9a40dca1e9fb66fbb4d72ffc55760d58e53070ba0a"
+            ],
+            "index": "pypi",
+            "version": "==0.5.1"
+        },
         "python-dateutil": {
             "hashes": [
                 "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86",
@@ -392,6 +400,13 @@
                 "sha256:a5220780a404dbe3353789870978e472cfe477761f06ee55077256e509b156d0"
             ],
             "version": "==0.2.6"
+        },
+        "wordlist": {
+            "hashes": [
+                "sha256:c1c6383943da8aed9273c2c6523573d47f1c7248df878d0c2ef7a6d658a33215"
+            ],
+            "index": "pypi",
+            "version": "==1.0.1"
         },
         "zipp": {
             "hashes": [
