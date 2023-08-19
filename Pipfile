@@ -9,6 +9,7 @@ sqlalchemy = "*"
 alembic = "*"
 faker = "*"
 wonderwords = "*"
+simple-term-menu = "*"
 
 [dev-packages]
 
