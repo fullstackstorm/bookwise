@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from faker import Faker
 from wonderwords import RandomWord
-from models import Author, Book, Genre, User
+from models.models import Author, Book, Genre, User
 
 engine = create_engine('sqlite:///library.db')
 Session = sessionmaker(bind=engine)
