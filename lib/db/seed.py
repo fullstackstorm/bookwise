@@ -73,15 +73,22 @@ def create_users():
     session.commit()
     return users
 
-def relate_one_to_many(authors, books, genres):
-    pass
+def establish_relationships(authors, books, genres):
+    for book in books:
+        author = fake.random_element(authors)
+        book.author = author
+        author.books.append(book)
+
+        genre = fake.random_element(genres)
+        book.genre = genre
+        genre.books.append(book)
 
 if __name__ == '__main__':
     delete_records()
 
     authors = create_authors()
-    available_genres = create_genres()
+    genres = create_genres()
     books = create_books()
     users = create_users()
 
-    authors, books, available_genres = relate_one_to_many(authors, books, available_genres)
+    authors, books, genres = establish_relationships(authors, books, genres)
