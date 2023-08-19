@@ -1,8 +1,8 @@
+#import ipdb; ipdb.set_trace()
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from faker import Faker
-from models import Base, Author, Book, Genre, User
-import ipdb; ipdb.set_trace()
+from models import Author, Book, Genre, User
 
 engine = create_engine('sqlite:///library.db')
 Session = sessionmaker(bind=engine)
@@ -73,22 +73,34 @@ def create_users():
     session.commit()
     return users
 
-def establish_relationships(authors, books, genres):
+def establish_relationships(authors, books, genres, users):
     for book in books:
         author = fake.random_element(authors)
-        book.author = author
+        book.author_id = author.id
         author.books.append(book)
 
         genre = fake.random_element(genres)
-        book.genre = genre
+        book.genre_id = genre.id
         genre.books.append(book)
 
+    for user in users:
+        user_preferred_genres = fake.random_elements(elements=genres, length=3, unique=True)
+        user.preferred_genres.extend(user_preferred_genres)
+
 if __name__ == '__main__':
-    delete_records()
+    try:
+        delete_records()
 
-    authors = create_authors()
-    genres = create_genres()
-    books = create_books()
-    users = create_users()
+        authors = create_authors()
+        genres = create_genres()
+        books = create_books(authors)
+        users = create_users()
 
-    authors, books, genres = establish_relationships(authors, books, genres)
+        establish_relationships(authors, books, genres)
+
+        session.commit()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        session.rollback()  # Rollback the session in case of an exception
+    finally:
+        session.close()  # Always close the session
