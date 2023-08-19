@@ -3,7 +3,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from faker import Faker
 from pyinflect import getAllInflections
-from wordlist import Wordlist
 from models import Author, Book, Genre, User
 
 engine = create_engine('sqlite:///library.db')
