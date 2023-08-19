@@ -2,7 +2,7 @@
 #import ipdb; ipdb.set_trace()
 from faker import Faker
 from wonderwords import RandomWord
-from models.models import Author, Book, Genre, User
+from models import Author, Book, Genre, User
 from session import Session
 
 session = Session()

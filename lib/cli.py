@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from db.models.models import User
+from lib.db.models import User
 from simple_term_menu import TerminalMenu
 
 class Cli():
