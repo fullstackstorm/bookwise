@@ -41,7 +41,7 @@ def create_genres():
     session.commit()
     return genres
 
-def create_books(authors, genres):
+def create_books(authors):
     book_titles = [
         f"{fake.catch_phrase()} Mysteries: {fake.city()}",
         f"The Chronicles of {fake.first_name()} {fake.last_name()}",
@@ -57,16 +57,21 @@ def create_books(authors, genres):
     for author in authors:
         num_books = fake.random_int(min_books_per_author, max_books_per_author)
         for _ in range(num_books):
-            genre = fake.random_element(genres)
             title = fake.random_element(book_titles)
-            book = Book(name=title, author=author, genre=genre)
+            book = Book(name=title)
             session.add(book)
             books.append(book)
     session.commit()
     return books
 
 def create_users():
-    pass
+    users = []
+    for _ in range(num_users):
+        user = User(name=fake.user_name)
+        users.append(user)
+        session.add(user)
+    session.commit()
+    return users
 
 def relate_one_to_many(authors, books, genres):
     pass
