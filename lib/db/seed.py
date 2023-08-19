@@ -26,7 +26,7 @@ def delete_records():
 def create_authors():
     authors = []
     for _ in range(num_authors):
-        author = Author(name=fake.full_name())
+        author = Author(name=f"{fake.first_name} {fake.last_name}")
         authors.append(author)
         session.add(author)
     session.commit()
@@ -54,7 +54,7 @@ def create_books(authors):
     ]
     
     books = []
-    for author in authors:
+    for _ in range(len(authors)):
         num_books = fake.random_int(min_books_per_author, max_books_per_author)
         for _ in range(num_books):
             title = fake.random_element(book_titles)
