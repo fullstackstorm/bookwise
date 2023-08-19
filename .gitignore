@@ -1,0 +1,38 @@
+# Ignore virtual environment
+venv/
+__pycache__/
+
+# Ignore compiled output
+dist/
+build/
+*.egg-info/
+
+# Ignore sensitive or confidential information
+config.ini
+secrets.json
+
+# Ignore environment-specific files
+.env
+.env.local
+.env.*.local
+
+# Ignore database files
+*.db
+
+# Ignore compiled files and build artifacts
+*.o
+*.pyc
+__pycache__/
+*.class
+target/
+
+# Ignore IDE and editor-specific files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore system and backup files
+.DS_Store
+Thumbs.db
+desktop.ini
