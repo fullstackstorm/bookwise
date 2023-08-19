@@ -1,8 +1,11 @@
+#!/usr/bin/env python
 #import ipdb; ipdb.set_trace()
 from faker import Faker
 from wonderwords import RandomWord
-from models.session import session
 from models.models import Author, Book, Genre, User
+from session import Session
+
+session = Session()
 
 fake = Faker()
 word = RandomWord()
@@ -86,9 +89,13 @@ def establish_relationships(authors, books, genres, users):
         author.books.append(book)
         genre.books.append(book)
 
+        session.commit()
+
     for user in users:
         user_preferred_genres = fake.random_elements(elements=genres, length=3, unique=True)
         user.preferred_genres.extend(user_preferred_genres)
+
+        session.commit()
 
 if __name__ == '__main__':
     try:

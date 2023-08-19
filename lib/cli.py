@@ -1,36 +1,27 @@
 #!/usr/bin/env python
+from db.models.user import BookWiseUser
 
-#!/usr/bin/env python
+current_user = BookWiseUser()
 
 def start():
     print("Welcome to BookWise! A CLI to give you new book recommendations.\n")
     while True:
-        print("1. Create a New Account")
-        print("2. Login to an Existing Account")
-        print("3. Exit")
-        user_input = input("Enter a selection (1-3): ")
-        if user_input in ['1', '2', '3']:
+        print("1. Login")
+        print("2. Exit\n")
+        user_input = input("Enter a selection (1-2):\n")
+        if user_input in ['1', '2']:
             handle_user_input(user_input)
-            if user_input == '3':
+            if user_input == '2':
                 break
         else:
-            print("Invalid selection. Please choose 1, 2, or 3.")
+            print("Invalid selection. Please choose 1 or 2.")
 
 def handle_user_input(choice):
     if choice == '1':
-        create_account()
+        current_user.login_or_create()
     elif choice == '2':
-        login()
-    elif choice == '3':
         print("Exiting the program.")
 
-def create_account():
-    # Implementation for creating a new account
-    print("Creating a new account.")
-
-def login():
-    # Implementation for logging in
-    print("Logging in.")
 
 if __name__ == '__main__':
     start()
