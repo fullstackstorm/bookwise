@@ -9,7 +9,7 @@ sqlalchemy = "*"
 alembic = "*"
 faker = "*"
 pyinflect = "*"
-pydictionary = "*"
+wonderwords = "*"
 
 [dev-packages]
 

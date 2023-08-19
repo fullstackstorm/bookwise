@@ -3,13 +3,14 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from faker import Faker
 from pyinflect import getAllInflections
-from PyDictionary import PyDictionary
+from wonderwords import RandomWord
 from models import Author, Book, Genre, User
 
 engine = create_engine('sqlite:///library.db')
 Session = sessionmaker(bind=engine)
 session = Session()
 fake = Faker()
+word = RandomWord()
 
 available_genres = ['Mystery', 'Science Fiction', 'Fantasy', 'Romance', 'Thriller', 'Historical', 'Adventure']
 
@@ -44,20 +45,19 @@ def create_genres():
     return genres
 
 def create_books(authors):
-    dictionary = PyDictionary()
-    adjectives = dictionary.getAdjectives()
+    adjectives = word.filter(include_parts_of_speech=["adjectives"])
     verbs = getAllInflections("VB")
     nouns = getAllInflections("NN")
 
     book_titles = [
-        f"{fake.catch_phrase.title()} Mysteries: {fake.city()}",
+        f"{fake.catch_phrase.capitalize()} Mysteries: {fake.city()}",
         f"The Chronicles of {fake.first_name()} {fake.last_name()}",
-        f"{fake.random_element(verbs).title()} in the {fake.random_element(adjectives).title()}",
-        f"{fake.random_element(adjectives).title()} {fake.random_element(nouns).title()}",
-        f"{fake.random_element(verbs).title()} of {fake.random_element(nouns).title()}",
-        f"Adventures in the {fake.random_element(nouns).title()}",
-        f"Journey through {fake.random_element(nouns).title()}",
-        f"Reflections in {fake.word().title()}"
+        f"{fake.random_element(verbs).capitalize()} in the {fake.random_element(adjectives).capitalize()}",
+        f"{fake.random_element(adjectives).capitalize()} {fake.random_element(nouns).capitalize()}",
+        f"{fake.random_element(verbs).capitalize()} of {fake.random_element(nouns).capitalize()}",
+        f"Adventures in the {fake.random_element(nouns).capitalize()}",
+        f"Journey through {fake.random_element(nouns).capitalize()}",
+        f"Reflections in {fake.word().capitalize()}"
     ]
     
     books = []
