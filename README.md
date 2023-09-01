@@ -29,7 +29,7 @@ To run BookWise, follow these steps:
 
 The CLI should now be running!
 
-##Usage
+## Usage
 1. Use your arrow keys to select wether you want to login or exit the application. Press enter to continue.
 
 2. If you login, type your username. An account will be created if you don't already have one. If you already have an account, step 3 will be skipped.
