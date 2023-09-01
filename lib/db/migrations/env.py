@@ -3,6 +3,20 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
+import os
+import sys
+
+# Get the absolute path to the directory containing migrations/env.py
+current_dir = os.path.abspath(os.path.dirname(__file__))
+
+# Add the path to your project's root directory to sys.path
+project_root = os.path.abspath(os.path.join(current_dir, '..', '..', '..'))
+sys.path.append(project_root)
+
+# Print sys.path to verify the updated path
+print(sys.path)
+
+
 from alembic import context
 
 # this is the Alembic Config object, which provides
