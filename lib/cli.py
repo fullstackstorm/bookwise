@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 from db.models import User
 from simple_term_menu import TerminalMenu
+from helpers import show_book_recommendations
 
 class Cli():
     def __init__(self):
-        current_user = None
+        self.current_user = None
 
     def start(self):
         self.clear_screen(44)
@@ -15,8 +16,10 @@ class Cli():
         
         if options[menu_entry_index] == "Login":
             self.handle_login()
+            show_book_recommendations(self.current_user)
         else:
             self.exit()
+  
 
     def clear_screen(self, lines):
         print("\n" * lines)
