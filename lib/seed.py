@@ -2,8 +2,9 @@
 #import ipdb; ipdb.set_trace()
 from faker import Faker
 from wonderwords import RandomWord
-from db.models import Author, Book, Genre, User
+from db.models import Author, Book, Genre, User, preferred_genre_association
 from db.session import Session
+import ipdb
 
 session = Session()
 
@@ -22,6 +23,7 @@ def delete_records():
     session.query(Book).delete()
     session.query(Genre).delete()
     session.query(User).delete()
+    session.query(preferred_genre_association).delete()
     session.commit()
 
 def create_authors():
@@ -48,21 +50,22 @@ def create_books(authors):
     nouns = word.filter(include_parts_of_speech=["nouns"])
 
     book_titles = [
-        f"{fake.catch_phrase()} Mysteries: {fake.city()}",
-        f"The Chronicles of {fake.first_name()} {fake.last_name()}",
-        f"{fake.random_element(verbs)} in the {fake.random_element(adjectives)}",
-        f"{fake.random_element(adjectives)} {fake.random_element(nouns)}",
-        f"{fake.random_element(verbs)} of {fake.random_element(nouns)}",
-        f"Adventures in the {fake.random_element(nouns)}",
-        f"Journey through {fake.random_element(nouns)}",
-        f"Reflections in {fake.word()}"
+        lambda: f"{fake.catch_phrase()} Mysteries: {fake.city()}",
+        lambda: f"The Chronicles of {fake.first_name()} {fake.last_name()}",
+        lambda: f"{fake.random_element(verbs)} in the {fake.random_element(adjectives)}",
+        lambda: f"{fake.random_element(adjectives)} {fake.random_element(nouns)}",
+        lambda: f"{fake.random_element(verbs)} of {fake.random_element(nouns)}",
+        lambda: f"Adventures in the {fake.random_element(nouns)}",
+        lambda: f"Journey through {fake.random_element(nouns)}",
+        lambda: f"Reflections in {fake.word()}"
     ]
     
     books = []
     for _ in range(len(authors)):
         num_books = fake.random_int(min_books_per_author, max_books_per_author)
         for _ in range(num_books):
-            title = fake.random_element(book_titles)
+            title = fake.random_element(book_titles)()
+            title = title = ' '.join(word.capitalize() for word in title.split())
             book = Book(name=title)
             session.add(book)
             books.append(book)
@@ -94,7 +97,6 @@ def establish_relationships(authors, books, genres, users):
     for user in users:
         user_preferred_genres = fake.random_elements(elements=genres, length=3, unique=True)
         user.preferred_genres.extend(user_preferred_genres)
-
         session.commit()
 
 if __name__ == '__main__':

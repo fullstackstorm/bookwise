@@ -4,20 +4,19 @@ from db.session import Session
 session = Session()
 
 def get_recommendation_table(genre_name, session = session):
-    genre = session.query(Genre).filter_by(name=genre_name).first()
-
     recommended_books = (
-        session.query(Book)
+        session.query(Book, Genre.name.label('genre_name'))
         .join(Genre, Genre.id == Book.genre_id)
-        .filter(Genre.id == genre.id)
+        .filter(Genre.name == genre_name)
         .all()
     )
     return recommended_books
 
 def print_recommendation_table(recommended_books):
-    for book in recommended_books:
+    for book, genre_name in recommended_books:
         print("Book:", book.name)
         print("Author:", book.author.name)
+        print("Genre:", genre_name)
         print("===")
 
 def show_book_recommendations(current_user):

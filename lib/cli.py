@@ -2,13 +2,14 @@
 from db.models import User
 from simple_term_menu import TerminalMenu
 from helpers import show_book_recommendations
+import os
 
 class Cli():
     def __init__(self):
         self.current_user = None
 
     def start(self):
-        self.clear_screen(44)
+        self.clear_screen()
         print("Welcome to BookWise! A CLI to give you new book recommendations.\n")
         options = ["Login", "Exit"]
         terminal_menu = TerminalMenu(options)
@@ -21,11 +22,8 @@ class Cli():
             self.exit()
   
 
-    def clear_screen(self, lines):
-        print("\n" * lines)
-
-    def second_menu():
-        pass
+    def clear_screen(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
 
     def handle_login(self):
         username = input("Enter your username, an account will be created if it doesn't exist:\n")

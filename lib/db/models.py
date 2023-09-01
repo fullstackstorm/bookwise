@@ -3,6 +3,7 @@ from simple_term_menu import TerminalMenu
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from .session import Session
+import ipdb
 
 session = Session()
 
@@ -64,17 +65,29 @@ class User(Base):
         else:
             new_user = User(name=username)
             session.add(new_user)
-
             new_user.capture_preferred_genres()
-
+            
             session.commit()
             return new_user
-        
+    
     def capture_preferred_genres(self):
         genres = session.query(Genre).all()
         genre_names = [genre.name for genre in genres]
-        menu = TerminalMenu(genre_names, title="Select Your Preferred Genre:")
-        
-        selected_index = menu.show()
-        preferred_genre = genres[selected_index]
-        self.preferred_genres.append(preferred_genre)
+        genre_names.append('Done')
+        preferred_genres = []
+        print("\n")
+
+        while True:
+            menu = TerminalMenu(genre_names, title="Select Your Preferred Genre (Select 'Done' to finish):")
+            selected_index = menu.show()
+            
+            if genre_names[selected_index] == 'Done':
+                break
+            
+            preferred_genre_id = genres[selected_index].id
+            # Query the Genre object by ID and store it
+            preferred_genre = session.query(Genre).filter_by(id=preferred_genre_id).one()
+            preferred_genres.append(preferred_genre)
+
+        self.preferred_genres.extend(preferred_genres)
+        session.commit()
